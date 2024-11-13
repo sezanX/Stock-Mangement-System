@@ -1,5 +1,4 @@
-# Inventory-Mangement-System
-Basic Stock Mangemen System
+## Basic Stock Mangemen System
 Using C basic programming language.
 
 `git clone https://github.com/sezanX/Inventory-Mangement-System`
