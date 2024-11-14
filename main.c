@@ -20,7 +20,7 @@ void addStock(FILE *file) {
     printf("Enter Price: ");
     scanf("%f", &stock.price);
 
-    fwrite(&stock, sizeof(Stock), 1, file);
+    fprintf(file, "%d %s %d %.2f\n", stock.itemID, stock.itemName, stock.quantity, stock.price);
     printf("Stock item added successfully.\n");
 }
 
@@ -31,7 +31,7 @@ void viewStock(FILE *file) {
     scanf("%d", &itemID);
 
     rewind(file);
-    while (fread(&stock, sizeof(Stock), 1, file)) {
+    while (fscanf(file, "%d %49s %d %f", &stock.itemID, stock.itemName, &stock.quantity, &stock.price) != EOF) {
         if (stock.itemID == itemID) {
             printf("Item ID: %d\n", stock.itemID);
             printf("Item Name: %s\n", stock.itemName);
@@ -49,14 +49,14 @@ void updateStock(FILE *file) {
     printf("Enter Item ID to update: ");
     scanf("%d", &itemID);
 
-    FILE *tempFile = fopen("temp.dat", "wb+");
-    if (tempFile == NULL) {
+    FILE *tempFile = fopen("temp.txt", "w");
+    if (!tempFile) {
         printf("Unable to open temporary file.\n");
         return;
     }
 
     rewind(file);
-    while (fread(&stock, sizeof(Stock), 1, file)) {
+    while (fscanf(file, "%d %49s %d %f", &stock.itemID, stock.itemName, &stock.quantity, &stock.price) != EOF) {
         if (stock.itemID == itemID) {
             printf("Enter new Item Name: ");
             scanf("%s", stock.itemName);
@@ -65,14 +65,14 @@ void updateStock(FILE *file) {
             printf("Enter new Price: ");
             scanf("%f", &stock.price);
         }
-        fwrite(&stock, sizeof(Stock), 1, tempFile);
+        fprintf(tempFile, "%d %s %d %.2f\n", stock.itemID, stock.itemName, stock.quantity, stock.price);
     }
 
     fclose(file);
     fclose(tempFile);
-    remove("stock.dat");
-    rename("temp.dat", "stock.dat");
-    file = fopen("stock.dat", "rb+");
+    remove("stock.txt");
+    rename("temp.txt", "stock.txt");
+    file = fopen("stock.txt", "r+");
     printf("Stock item updated successfully.\n");
 }
 
@@ -82,24 +82,24 @@ void deleteStock(FILE *file) {
     printf("Enter Item ID to delete: ");
     scanf("%d", &itemID);
 
-    FILE *tempFile = fopen("temp.dat", "wb+");
-    if (tempFile == NULL) {
+    FILE *tempFile = fopen("temp.txt", "w");
+    if (!tempFile) {
         printf("Unable to open temporary file.\n");
         return;
     }
 
     rewind(file);
-    while (fread(&stock, sizeof(Stock), 1, file)) {
+    while (fscanf(file, "%d %49s %d %f", &stock.itemID, stock.itemName, &stock.quantity, &stock.price) != EOF) {
         if (stock.itemID != itemID) {
-            fwrite(&stock, sizeof(Stock), 1, tempFile);
+            fprintf(tempFile, "%d %s %d %.2f\n", stock.itemID, stock.itemName, stock.quantity, stock.price);
         }
     }
 
     fclose(file);
     fclose(tempFile);
-    remove("stock.dat");
-    rename("temp.dat", "stock.dat");
-    file = fopen("stock.dat", "rb+");
+    remove("stock.txt");
+    rename("temp.txt", "stock.txt");
+    file = fopen("stock.txt", "r+");
     printf("Stock item deleted successfully.\n");
 }
 
@@ -109,7 +109,7 @@ void listAllStocks(FILE *file) {
     printf("\nAll Stock Items:\n");
     printf("Item ID\tItem Name\tQuantity\tPrice\n");
     printf("--------------------------------------------------\n");
-    while (fread(&stock, sizeof(Stock), 1, file)) {
+    while (fscanf(file, "%d %49s %d %f", &stock.itemID, stock.itemName, &stock.quantity, &stock.price) != EOF) {
         printf("%d\t%s\t%d\t%.2f\n", stock.itemID, stock.itemName, stock.quantity, stock.price);
     }
 }
@@ -124,7 +124,7 @@ void generateLowStockReport(FILE *file) {
     printf("\nLow Stock Items:\n");
     printf("Item ID\tItem Name\tQuantity\tPrice\n");
     printf("--------------------------------------------------\n");
-    while (fread(&stock, sizeof(Stock), 1, file)) {
+    while (fscanf(file, "%d %49s %d %f", &stock.itemID, stock.itemName, &stock.quantity, &stock.price) != EOF) {
         if (stock.quantity < threshold) {
             printf("%d\t%s\t%d\t%.2f\n", stock.itemID, stock.itemName, stock.quantity, stock.price);
         }
@@ -132,18 +132,16 @@ void generateLowStockReport(FILE *file) {
 }
 
 int main() {
-    FILE *file;
-    int choice;
-
-    file = fopen("stock.dat", "rb+");
-    if (file == NULL) {
-        file = fopen("stock.dat", "wb+");
-        if (file == NULL) {
+    FILE *file = fopen("stock.txt", "r+");
+    if (!file) {
+        file = fopen("stock.txt", "w+");
+        if (!file) {
             printf("Unable to open file.\n");
             return 1;
         }
     }
 
+    int choice;
     while (1) {
         printf("\nStock Management System\n");
         printf("1. Add Stock Item\n");
