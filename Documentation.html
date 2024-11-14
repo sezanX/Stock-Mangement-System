@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Management System Documentation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        h1, h2, h3 {
+            color: #0056b3;
+        }
+        h1 {
+            text-align: center;
+        }
+        pre {
+            background-color: #eee;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        code {
+            background-color: #e7f3fe;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+        ul {
+            margin-bottom: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .section {
+            margin-bottom: 40px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Stock Management System</h1>
+
+        <div class="section">
+            <h2>Keywords and Their Functionality</h2>
+            <h3>#include &lt;stdio.h&gt; and #include &lt;stdlib.h&gt;</h3>
+            <p>These are preprocessor directives that include standard input/output and standard library functions. They are necessary for file operations, input/output functions, and memory allocation.</p>
+
+            <h3>typedef struct { ... } Stock;</h3>
+            <p>Defines a custom data type <code>Stock</code> that holds information about stock items. This struct contains four members:</p>
+            <ul>
+                <li><code>itemID</code></li>
+                <li><code>itemName</code></li>
+                <li><code>quantity</code></li>
+                <li><code>price</code></li>
+            </ul>
+
+            <h3>FILE *file</h3>
+            <p>A pointer to a file object used to handle file operations like reading and writing stock data.</p>
+
+            <h3>int choice</h3>
+            <p>Variable to store the user's menu choice.</p>
+        </div>
+
+        <div class="section">
+            <h2>Variables and Their Usage</h2>
+
+            <h3>itemID (in multiple functions)</h3>
+            <p>Used to identify specific stock items for view, update, and delete operations.</p>
+
+            <h3>Stock stock (in multiple functions)</h3>
+            <p>A variable of type <code>Stock</code> used to store and manipulate stock data during various operations.</p>
+
+            <h3>FILE *tempFile (in update and delete functions)</h3>
+            <p>A temporary file used for modifying the stock data by writing updated data and then replacing the original file.</p>
+
+            <h3>int threshold (in generateLowStockReport)</h3>
+            <p>Used to specify a quantity threshold for generating a low stock report.</p>
+        </div>
+
+        <div class="section">
+            <h2>Functionality and How Each Part Works</h2>
+
+            <h3>Main Function</h3>
+            <p><strong>Purpose:</strong> Controls the program flow and user interaction.</p>
+            <pre><code>main()
+│
+├── Open file (stock.txt)
+│   ├── If file does not exist, create it
+│   └── If file cannot be opened, print error and exit
+│
+├── Display menu and read user choice
+│
+└── Switch (choice)
+    ├── case 1: addStock(file)
+    ├── case 2: viewStock(file)
+    ├── case 3: updateStock(file)
+    ├── case 4: deleteStock(file)
+    ├── case 5: listAllStocks(file)
+    ├── case 6: generateLowStockReport(file)
+    └── case 7: exit program</code></pre>
+
+            <h3>Add Stock Function</h3>
+            <p><strong>Purpose:</strong> Adds a new stock item to the file.</p>
+            <pre><code>addStock(FILE *file)
+│
+├── Prompt user for stock details
+│   ├── itemID
+│   ├── itemName
+│   ├── quantity
+│   └── price
+│
+└── Write stock data to file (fprintf)</code></pre>
+
+            <h3>View Stock Function</h3>
+            <p><strong>Purpose:</strong> Displays details of a specific stock item.</p>
+            <pre><code>viewStock(FILE *file)
+│
+├── Prompt user for itemID
+│
+├── Rewind file to start
+│
+└── Read and check each stock item
+    ├── If itemID matches, display item details
+    └── If itemID does not match, continue reading</code></pre>
+
+            <h3>Update Stock Function</h3>
+            <p><strong>Purpose:</strong> Updates details of a specific stock item.</p>
+            <pre><code>updateStock(FILE *file)
+│
+├── Prompt user for itemID
+│
+├── Open temporary file (temp.txt)
+│
+└── Read and check each stock item
+    ├── If itemID matches, prompt for new details and write to temp file
+    └── If itemID does not match, write original details to temp file
+│
+├── Replace original file with temp file
+│
+└── Print success message</code></pre>
+
+            <h3>Delete Stock Function</h3>
+            <p><strong>Purpose:</strong> Deletes a specific stock item.</p>
+            <pre><code>deleteStock(FILE *file)
+│
+├── Prompt user for itemID
+│
+├── Open temporary file (temp.txt)
+│
+└── Read and check each stock item
+    ├── If itemID does not match, write to temp file
+    └── If itemID matches, skip writing to temp file
+│
+├── Replace original file with temp file
+│
+└── Print success message</code></pre>
+
+            <h3>List All Stocks Function</h3>
+            <p><strong>Purpose:</strong> Lists all stock items in the file.</p>
+            <pre><code>listAllStocks(FILE *file)
+│
+├── Rewind file to start
+│
+├── Print header for stock list
+│
+└── Read and print each stock item</code></pre>
+
+            <h3>Generate Low Stock Report Function</h3>
+            <p><strong>Purpose:</strong> Generates a report for stock items below a specified quantity.</p>
+            <pre><code>generateLowStockReport(FILE *file)
+│
+├── Prompt user for quantity threshold
+│
+├── Rewind file to start
+│
+├── Print header for low stock report
+│
+└── Read and check each stock item
+    ├── If quantity is below threshold, print item details</code></pre>
+        </div>
+
+        <div class="section">
+            <h2>Tree Map of Full Code Structure</h2>
+            <pre><code>
+                main()
+                │
+                ├── Open file (stock.txt)
+                │
+                ├── Display menu and read user choice
+                │
+                └── Switch (choice)
+                    ├── case 1: addStock(file)
+                    │   ├── Prompt user for stock details
+                    │   └── Write stock data to file
+                    │
+                    ├── case 2: viewStock(file)
+                    │   ├── Prompt user for itemID
+                    │   ├── Rewind file to start
+                    │   └── Read and display stock item
+                    │
+                    ├── case 3: updateStock(file)
+                    │   ├── Prompt user for itemID
+                    │   ├── Open temp file
+                    │   ├── Read and update stock item
+                    │   ├── Replace original file with temp file
+                    │   └── Print success message
+                    │
+                    ├── case 4: deleteStock(file)
+                    │   ├── Prompt user for itemID
+                    │   ├── Open temp file
+                    │   ├── Read and delete stock item
+                    │   ├── Replace original file with temp file
+                    │   └── Print success message
+                    │
+                    ├── case 5: listAllStocks(file)
+                    │   ├── Rewind file to start
+                    │   ├── Print header
+                    │   └── Read and print stock items
+                    │
+                    ├── case 6: generateLowStockReport(file)
+                    │   ├── Prompt user for threshold
+                    │   ├── Rewind file to start
+                    │   ├── Print header
+                    │   └── Read and print low stock items
+                    │
+                    └── case 7: exit program
+            </code></pre></div></div>
+        </body>
+        </html>
