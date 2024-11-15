@@ -125,7 +125,7 @@ void generateLowStockReport(FILE *file) {
     printf("Item ID\tItem Name\tQuantity\tPrice\n");
     printf("--------------------------------------------------\n");
     while (fscanf(file, "%d %49s %d %f", &stock.itemID, stock.itemName, &stock.quantity, &stock.price) != EOF) {
-        if (stock.quantity < threshold) {
+        if (stock.quantity < low_stock_report) {
             printf("%d\t%s\t%d\t%.2f\n", stock.itemID, stock.itemName, stock.quantity, stock.price);
         }
     }
