@@ -115,10 +115,10 @@ void listAllStocks(FILE *file) {
 }
 
 void generateLowStockReport(FILE *file) {
-    int threshold;
+    int low_stock_report;
     Stock stock;
     printf("Enter quantity threshold for low stock report: ");
-    scanf("%d", &threshold);
+    scanf("%d", &low_stock_report);
 
     rewind(file);
     printf("\nLow Stock Items:\n");
