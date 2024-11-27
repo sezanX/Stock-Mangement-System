@@ -11,11 +11,12 @@ Using C basic programming language.
 <strong>Update items:</strong> Modify item details (quantity, price).<br>
 <strong>Delete items:</strong> Remove items from the inventory.-->
 
-Stock Management System
+## Features
 1. Add Stock Item
 2. View Stock Item
 3. Update Stock Item
 4. Delete Stock Item
 5. List All Stock Items
 6. Generate Low Stock Report
-7. Exit
+7. View Update History
+8. Exit
