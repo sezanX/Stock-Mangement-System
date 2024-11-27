@@ -1,6 +1,7 @@
 ## Basic Stock Management System
 Using C basic programming language.
-### Documentation 
+### Documentation <a href="Algorithm Steps.pdf">Click Here</a>
+
 <!--
 ### Full Documentation - https://sezanx.github.io/Stock-Mangement-System/
 -->
