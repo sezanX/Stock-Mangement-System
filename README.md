@@ -1,8 +1,9 @@
 ## Basic Stock Management System
 Using C basic programming language.
-
+### Documentation 
+<!--
 ### Full Documentation - https://sezanx.github.io/Stock-Mangement-System/
-
+-->
 `git clone https://github.com/sezanX/Inventory-Mangement-System`
 
 <!--# How To work-
