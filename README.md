@@ -1,6 +1,5 @@
-## Basic Stock Management System
-Using C basic programming language.
-### Documentation (<a href="Algorithm Steps.pdf">Click Here</a>)
+
+<!--### Documentation (<a href="Algorithm Steps.pdf">Click Here</a>)-->
 
 # Stock Management System
 
