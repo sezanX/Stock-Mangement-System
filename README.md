@@ -72,11 +72,6 @@ Feel free to contribute to this project by forking the repository and submitting
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## Acknowledgments
-
-- Special thanks to all developers and contributors who inspire and help improve this project.
-- Resources and tutorials that helped in building this system.
-
 ---
 
 _Enhance your stock management with simplicity and efficiency._
