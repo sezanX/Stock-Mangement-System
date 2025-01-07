@@ -3,6 +3,7 @@
 
 # Stock Management System
 
+
 A simple yet effective stock management system written in C, designed to handle stock items, track their quantities, prices, and maintain an update history. This system is perfect for small-scale businesses or educational purposes to understand file handling and data management in C.
 
 ## Features
